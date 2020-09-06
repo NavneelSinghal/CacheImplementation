@@ -31,6 +31,15 @@ General input and output
 
 The input and output is done using simple file I/O, and inputs are carefully validated before being used. In particular, one validation step that's taken is to check whether the data fits inside the block or not (data is assumed to be a signed integer for our purposes). The rest of those correspond to the design decisions about having sizes as powers of two only (to emulate a processor as close as possible, also clarified on Piazza).
 
+## Running instructions
+
+As in the Makefile, to compile the code, run g++ -o main main.cpp
+To run the code, run ./main <filename>
+
+The program can also be run in a verbose mode, so to run that, run 'make verbose' to compile the code in that mode then run the code.
+Another mode, primarily for checking correctness of write back, is the mem mode, and just run 'make mem' to compile the code.
+To use both these modes, just run 'make memverbose'
+
 ## Testing
 
 The following types of testing has been carried out:
@@ -42,9 +51,56 @@ The following types of testing has been carried out:
 3. Testing whether sizes are not powers of two or not
 4. Testing for invalid inputs (spacing and commas etc)
 
-### Stress testing 
+### Correctness testing
 
-### Testing on simple real-life programs
+1. Testing whether the priority order is working correctly
+2. Testing whether the replacement policy is working correctly
+3. Testing whether the timeout is working correctly
+4. Testing whether the sizes are variable or not
 
-### Testing for optimal parameters
+### Testing on large real-life programs for optimal parameters
 
+I chose matrix multiplication as a program for testing out the cache efficiencies. The results were as follows:
+
+1. Varying the cache size:
+As cache size is increased, the hit ratio increases and it becomes essentially constant at larger cache sizes. For example, when everything else was kept constant (to 8, 2, 4), the following efficiencies were found:
+
+Cache size      Hit ratio
+16              0.477
+64              0.478
+256             0.683
+1024            0.709
+2048            0.925
+4096            0.969
+65536           0.969
+
+2. Varying the block size:
+The block size can only be at most 8 bytes, however on running a simulation with smaller data on the same reads and writes, we can note that the number of blocks decreases, so the effect is similar to that of keeping block size constant and decreasing the cache size (since the block size doesn't matter in our simulation).
+
+3. Varying the idle time:
+It was noted that there was a minor change in the performance, when everything else was constant (2048, 8, 2), and I ran the code on 17 * 17 matrix instead.
+
+1 Hit ratio = 0.8722732060
+2 Hit ratio = 0.8722732060
+4 Hit ratio = 0.8722732060
+8 Hit ratio = 0.8723233539
+16 Hit ratio = 0.8723233539
+32 Hit ratio = 0.8723233539
+64 Hit ratio = 0.8724236498
+128 Hit ratio = 0.8790431774
+256 Hit ratio = 0.8795446567
+512 Hit ratio = 0.8783411063
+1024 Hit ratio = 0.8847600421
+2048 Hit ratio = 0.8746301590
+
+4. Varying the cache associativity:
+Matrix multiplication has a peculiar property of decreasing the hit ratio on increasing the cache associativity than most other programs (reference: https://www.researchgate.net/publication/258870751_Performance_Drawbacks_for_Matrix_Multiplication_using_Set_Associative_Cache_in_GPU_devices), so I ran a random test case to determine effect of cache associativity on a program.
+
+1 Hit ratio = 0.4970900000
+2 Hit ratio = 0.4975300000
+4 Hit ratio = 0.4980100000
+8 Hit ratio = 0.4990000000
+16 Hit ratio = 0.4980900000
+32 Hit ratio = 0.4983800000
+
+From here, as cache associativity increases, the hit ratio roughly increases as well

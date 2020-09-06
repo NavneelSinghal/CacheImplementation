@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const int N = 16;
+const int N = 17;
 int a[N][N];
 int b[N][N];
 

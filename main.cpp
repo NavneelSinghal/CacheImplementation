@@ -462,6 +462,12 @@ int main (int argc, char* argv[]) {
         }
     }
 
+#ifdef MEM
+    for (int i = 0; i < 100; ++i)
+        cout << memory[i] << ' ';
+    cout << endl;
+#endif 
+
     cout << "Cache statistics" << endl 
          << "Number of accesses = " << accesses << endl 
          << "Number of reads = " << reads << endl
