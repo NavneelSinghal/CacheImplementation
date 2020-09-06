@@ -20,7 +20,7 @@ bool isnum (char x) {
 
 // check if signed data can fit in the given number of bytes
 bool in_range (long long data, int bytes) {
-    int mx = (1LL << (bytes << 3)) - 1;
+    int mx = (1LL << ((bytes << 3) - 1)) - 1;
     int mn = - mx - 1;
     return mn <= data && data <= mx;
 }
@@ -356,17 +356,15 @@ int main (int argc, char* argv[]) {
     string line;
     while (cin >> line) {
 
-
-        /*for (auto &c : line) {
-            if (c == ',') c = ' ';
-        }*/
         long long location = 0, data = 0;
         char choice;
 
         // input starts
 
+        assert(line.back() == ',');
         location = stoi(line.substr(0, line.size() - 1));
         cin >> line;
+        assert(line.size() == 2 && line.back() == ',');
         choice = line[0];
         if (choice == 'W') {
             cin >> line;
