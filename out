@@ -1,0 +1,535 @@
+Cache size: 16
+Block size: 2
+Cache associativity: 2
+Timeout: 4
+Number of sets: 4
+-----------------------
+Location: 1
+Choice: W
+Data: 1
+Printing cache
+
+Set # 0
+High priority elements: 0
+Low priority elements: 1
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 1
+Tag: 1
+Original memory location: 1
+Countdown: -1
+
+Set # 1
+High priority elements: 0
+Low priority elements: 0
+Blocks
+
+Set # 2
+High priority elements: 0
+Low priority elements: 0
+Blocks
+
+Set # 3
+High priority elements: 0
+Low priority elements: 0
+Blocks
+-----------------------
+Location: 5
+Choice: W
+Data: 5
+Printing cache
+
+Set # 0
+High priority elements: 0
+Low priority elements: 1
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 1
+Tag: 1
+Original memory location: 1
+Countdown: -1
+
+Set # 1
+High priority elements: 0
+Low priority elements: 1
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 5
+Tag: 1
+Original memory location: 5
+Countdown: -1
+
+Set # 2
+High priority elements: 0
+Low priority elements: 0
+Blocks
+
+Set # 3
+High priority elements: 0
+Low priority elements: 0
+Blocks
+-----------------------
+Location: 6
+Choice: W
+Data: 6
+Printing cache
+
+Set # 0
+High priority elements: 0
+Low priority elements: 1
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 1
+Tag: 1
+Original memory location: 1
+Countdown: -1
+
+Set # 1
+High priority elements: 0
+Low priority elements: 2
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 6
+Tag: 2
+Original memory location: 6
+Countdown: -1
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 5
+Tag: 1
+Original memory location: 5
+Countdown: -1
+
+Set # 2
+High priority elements: 0
+Low priority elements: 0
+Blocks
+
+Set # 3
+High priority elements: 0
+Low priority elements: 0
+Blocks
+-----------------------
+Location: 1
+Choice: R
+Data: 0
+Printing cache
+
+Set # 0
+High priority elements: 1
+Low priority elements: 0
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 1
+Tag: 1
+Original memory location: 1
+Countdown: 3
+
+Set # 1
+High priority elements: 0
+Low priority elements: 2
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 6
+Tag: 2
+Original memory location: 6
+Countdown: -1
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 5
+Tag: 1
+Original memory location: 5
+Countdown: -1
+
+Set # 2
+High priority elements: 0
+Low priority elements: 0
+Blocks
+
+Set # 3
+High priority elements: 0
+Low priority elements: 0
+Blocks
+-----------------------
+Location: 0
+Choice: W
+Data: 0
+Printing cache
+
+Set # 0
+High priority elements: 1
+Low priority elements: 1
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 1
+Tag: 1
+Original memory location: 1
+Countdown: 2
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 0
+Tag: 0
+Original memory location: 0
+Countdown: -1
+
+Set # 1
+High priority elements: 0
+Low priority elements: 2
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 6
+Tag: 2
+Original memory location: 6
+Countdown: -1
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 5
+Tag: 1
+Original memory location: 5
+Countdown: -1
+
+Set # 2
+High priority elements: 0
+Low priority elements: 0
+Blocks
+
+Set # 3
+High priority elements: 0
+Low priority elements: 0
+Blocks
+-----------------------
+Location: 5
+Choice: R
+Data: 0
+Printing cache
+
+Set # 0
+High priority elements: 1
+Low priority elements: 1
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 1
+Tag: 1
+Original memory location: 1
+Countdown: 1
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 0
+Tag: 0
+Original memory location: 0
+Countdown: -1
+
+Set # 1
+High priority elements: 1
+Low priority elements: 1
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 5
+Tag: 1
+Original memory location: 5
+Countdown: 3
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 6
+Tag: 2
+Original memory location: 6
+Countdown: -1
+
+Set # 2
+High priority elements: 0
+Low priority elements: 0
+Blocks
+
+Set # 3
+High priority elements: 0
+Low priority elements: 0
+Blocks
+-----------------------
+Location: 7
+Choice: W
+Data: 7
+Printing cache
+
+Set # 0
+High priority elements: 1
+Low priority elements: 1
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 1
+Tag: 1
+Original memory location: 1
+Countdown: 0
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 0
+Tag: 0
+Original memory location: 0
+Countdown: -1
+
+Set # 1
+High priority elements: 1
+Low priority elements: 2
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 5
+Tag: 1
+Original memory location: 5
+Countdown: 2
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 7
+Tag: 3
+Original memory location: 7
+Countdown: -1
+Block # 2
+Valid: Yes
+Dirty: Yes
+Value: 6
+Tag: 2
+Original memory location: 6
+Countdown: -1
+
+Set # 2
+High priority elements: 0
+Low priority elements: 0
+Blocks
+
+Set # 3
+High priority elements: 0
+Low priority elements: 0
+Blocks
+-----------------------
+Location: 3
+Choice: W
+Data: 3
+Printing cache
+
+Set # 0
+High priority elements: 0
+Low priority elements: 3
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 1
+Tag: 1
+Original memory location: 1
+Countdown: -1
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 3
+Tag: 3
+Original memory location: 3
+Countdown: -1
+Block # 2
+Valid: Yes
+Dirty: Yes
+Value: 0
+Tag: 0
+Original memory location: 0
+Countdown: -1
+
+Set # 1
+High priority elements: 1
+Low priority elements: 2
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 5
+Tag: 1
+Original memory location: 5
+Countdown: 1
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 7
+Tag: 3
+Original memory location: 7
+Countdown: -1
+Block # 2
+Valid: Yes
+Dirty: Yes
+Value: 6
+Tag: 2
+Original memory location: 6
+Countdown: -1
+
+Set # 2
+High priority elements: 0
+Low priority elements: 0
+Blocks
+
+Set # 3
+High priority elements: 0
+Low priority elements: 0
+Blocks
+-----------------------
+Location: 5
+Choice: W
+Data: 50
+Printing cache
+
+Set # 0
+High priority elements: 0
+Low priority elements: 3
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 1
+Tag: 1
+Original memory location: 1
+Countdown: -1
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 3
+Tag: 3
+Original memory location: 3
+Countdown: -1
+Block # 2
+Valid: Yes
+Dirty: Yes
+Value: 0
+Tag: 0
+Original memory location: 0
+Countdown: -1
+
+Set # 1
+High priority elements: 1
+Low priority elements: 2
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 50
+Tag: 1
+Original memory location: 5
+Countdown: 3
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 7
+Tag: 3
+Original memory location: 7
+Countdown: -1
+Block # 2
+Valid: Yes
+Dirty: Yes
+Value: 6
+Tag: 2
+Original memory location: 6
+Countdown: -1
+
+Set # 2
+High priority elements: 0
+Low priority elements: 0
+Blocks
+
+Set # 3
+High priority elements: 0
+Low priority elements: 0
+Blocks
+-----------------------
+Location: 7
+Choice: R
+Data: 0
+Printing cache
+
+Set # 0
+High priority elements: 0
+Low priority elements: 3
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 1
+Tag: 1
+Original memory location: 1
+Countdown: -1
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 3
+Tag: 3
+Original memory location: 3
+Countdown: -1
+Block # 2
+Valid: Yes
+Dirty: Yes
+Value: 0
+Tag: 0
+Original memory location: 0
+Countdown: -1
+
+Set # 1
+High priority elements: 2
+Low priority elements: 1
+Blocks
+Block # 0
+Valid: Yes
+Dirty: Yes
+Value: 7
+Tag: 3
+Original memory location: 7
+Countdown: 3
+Block # 1
+Valid: Yes
+Dirty: Yes
+Value: 50
+Tag: 1
+Original memory location: 5
+Countdown: 2
+Block # 2
+Valid: Yes
+Dirty: Yes
+Value: 6
+Tag: 2
+Original memory location: 6
+Countdown: -1
+
+Set # 2
+High priority elements: 0
+Low priority elements: 0
+Blocks
+
+Set # 3
+High priority elements: 0
+Low priority elements: 0
+Blocks
