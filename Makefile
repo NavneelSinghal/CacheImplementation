@@ -3,4 +3,6 @@ all:
 verbose:
 	g++ -DVERBOSE -o main main.cpp
 run:
-	@./main in
+	@./main ./tests/in > out
+matrix:
+	@./main ./tests/matrix > out

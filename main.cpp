@@ -3,6 +3,7 @@
 #include <vector>
 #include <cassert>
 #include <cstring>
+#include <climits>
 
 using namespace std;
 
@@ -18,10 +19,10 @@ bool isnum (char x) {
     return x <= '9' && x >= '0';
 }
 
+long long mx, mn;
+
 // check if signed data can fit in the given number of bytes
-bool in_range (long long data, int bytes) {
-    int mx = (1LL << ((bytes << 3) - 1)) - 1;
-    int mn = - mx - 1;
+bool in_range (long long data) {
     return mn <= data && data <= mx;
 }
 
@@ -344,6 +345,15 @@ int main (int argc, char* argv[]) {
     assert (num_blocks % cache_associativity == 0);
     num_sets = num_blocks / cache_associativity;
 
+    assert(block_size <= 8);
+    if (block_size == 8) {
+        mx = LLONG_MAX;
+        mn = LLONG_MIN;
+    } else {
+        mx = (1LL << (block_size * 8 - 1)) - 1;
+        mn = - mx - 1;
+    }
+
 #ifdef VERBOSE
     cout << "Number of sets: " << num_sets << endl;
     cout << "Number of blocks per set: " << cache_associativity << endl;
@@ -362,14 +372,17 @@ int main (int argc, char* argv[]) {
         // input starts
 
         assert(line.back() == ',');
-        location = stoi(line.substr(0, line.size() - 1));
+        location = stoll(line.substr(0, line.size() - 1));
         cin >> line;
-        assert(line.size() == 2 && line.back() == ',');
+        if (!((line.size() == 2 && line.back() == ',') || line.size() == 1 && line[0] == 'R')) {
+            cerr << line << endl;
+            assert(false);
+        }
         choice = line[0];
         if (choice == 'W') {
             cin >> line;
             data = stoll(line);
-            if (!in_range(data, block_size)) {
+            if (!in_range(data)) {
                 cerr << "Data doesn't fit in block size\n"; 
                 return 0;
             }

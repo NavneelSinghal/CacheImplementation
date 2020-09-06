@@ -1,4 +1,5 @@
 1. make test cases to show that each if statement works properly
 2. make test cases to show that the size is indeed variable
-3. make test cases to check various parameters for standard problems like matrix multiplication
-4. input validation
+3. make test cases to check various parameters for standard problem matrix multiplication - done
+4. input validation - done
+5. stress testing
