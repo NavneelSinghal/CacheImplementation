@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <vector>
 #include <cassert>
+#include <cstring>
 
 using namespace std;
 
@@ -23,7 +24,7 @@ bool isnum (char x) {
 
 const int MAX = 1e7;
 
-long long memory[MAX];
+long long memory[MAX] = {0};
 
 long long t = 0;
 int cache_size, block_size, cache_associativity, num_sets, num_blocks;
@@ -38,12 +39,12 @@ int write_hits = 0;
 int write_misses = 0;
 
 int combine (int tag, int set_number) {
-    return set_number * num_sets + tag;
+    return set_number + tag * num_sets;
 }
 
 // returns tag, set_number
 pair<int, int> unpack (int mem_loc) {
-    return make_pair(mem_loc % num_sets, mem_loc / num_sets);
+    return make_pair(mem_loc / num_sets, mem_loc % num_sets);
 }
 
 struct Block {
@@ -69,12 +70,12 @@ struct Block {
     Block(int value, int tag) : valid(true), dirty(false), value(value), tag(tag), time(-1) {}
 
     void print(int s) {
-        cout << "Valid: " << (valid ? "Yes" : "No") << endl;
-        cout << "Dirty: " << (dirty ? "Yes" : "No") << endl;
-        cout << "Value: " << (value) << endl;
-        cout << "Tag: " << tag << endl;
-        cout << "Original memory location: " << combine(tag, s) << endl;
-        cout << "Countdown: " << time << endl;
+        cout << "\t\t\tValid: " << (valid ? "Yes" : "No") << endl;
+        cout << "\t\t\tDirty: " << (dirty ? "Yes" : "No") << endl;
+        cout << "\t\t\tValue: " << (value) << endl;
+        cout << "\t\t\tTag: " << tag << endl;
+        cout << "\t\t\tOriginal memory location: " << combine(tag, s) << endl;
+        cout << "\t\t\tCountdown: " << time << endl;
     }
 };
 
@@ -98,30 +99,16 @@ struct Set {
     void print() {
         cout << endl;
         cout << "Set # " << index << endl;
-        cout << "High priority elements: " << high << endl;
-        cout << "Low priority elements: " << low - high << endl;
-        cout << "Blocks" << endl;
+        cout << "\tHigh priority elements: " << high << endl;
+        cout << "\tLow priority elements: " << low - high << endl;
+        cout << "\tBlocks ";
+        if (low == 0) cout << "(empty)";
+        cout << endl;
         for (int i = 0; i < low; ++i) {
-            cout << "Block # " << i << endl;
+            cout << "\t\tBlock # " << i << endl;
             set[i].print(index);
         }
     }
-
-    // this is all invalid for now
-    // read
-    // first check if it is inside cache
-    // if it is there
-    //   1. read it
-    //   2. update access time for this element
-    //   3. if in low priority, put it into high priority
-    //   4. after looking at access times -
-    //     a. if high priority is full, then write back the oldest element of high priority into memory (for pushing low priority elements into high priority elements)
-    //     b. if low priority is full, just write back into the memory (in the end when you push elements from high to low priority after expiry)
-    // else 
-    //   1. access from the memory
-    //   2. put it into low priority group
-    //   3. for doing this, see b. of above
-    // in the end, push old elements of high priority to low priority and keep doing b.
 
     // loc is the tag of the memory location and not the memory location
     void read (int loc) {
@@ -198,23 +185,6 @@ struct Set {
         }
 
     }
-
-    // write
-    // first check if it is inside cache
-    // if it is there
-    //   1. set the dirty bit to 1
-    //   2. write to block
-    //   3. if not into high priority, put it into high priority
-    //   4. rearrange and all
-    //     a.
-    //     b.
-    // else
-    //   1. access from memory (and write to it?)
-    //   2. put it into low priority group
-    //   3. write to block and set dirty bit to 1
-    //   4. rearrange and all
-    //     a.
-    //     b.
 
     void write (int loc, int data) {
         
@@ -295,7 +265,6 @@ struct Set {
             }
         }
     }
-
 };
 
 struct Cache {
@@ -307,10 +276,11 @@ struct Cache {
     vector<Set> sets;
 
     // constructor for a given cache size and set size
+    // here cache size is actually in terms of number of sets
     Cache(int cache_size, int set_size) : size(cache_size) {
         assert (cache_size > 0);
         sets.assign(cache_size, Set(set_size));
-        for (int i = 0; i < set_size; ++i) {
+        for (int i = 0; i < cache_size; ++i) {
             sets[i].index = i;
         }
     }
@@ -335,10 +305,14 @@ int main (int argc, char* argv[]) {
     }
 
     cin >> cache_size >> block_size >> cache_associativity >> t;
+
+#ifdef VERBOSE
     cout << "Cache size: " << cache_size << endl
          << "Block size: " << block_size << endl
          << "Cache associativity: " << cache_associativity << endl
          << "Timeout: " << t << endl;
+#endif
+
     // input validation 
     // t = 0 doesn't make sense because then the high priority group would be empty by vacuousness
     // cache_size = 0 doesn't make sense because empty cache is useless
@@ -363,14 +337,18 @@ int main (int argc, char* argv[]) {
     assert (num_blocks % cache_associativity == 0);
     num_sets = num_blocks / cache_associativity;
 
+#ifdef VERBOSE
     cout << "Number of sets: " << num_sets << endl;
+    cout << "Number of blocks per set: " << cache_associativity << endl;
+#endif
 
-    Cache cache(num_sets, num_blocks);
+    Cache cache(num_sets, cache_associativity);
+
+    memset(memory, 0, sizeof memory);
 
     string line;
     while (cin >> line) {
 
-        cout << "-----------------------" << endl;
 
         /*for (auto &c : line) {
             if (c == ',') c = ' ';
@@ -387,10 +365,13 @@ int main (int argc, char* argv[]) {
             cin >> line;
             data = stoi(line);
         }
-
+        
+#ifdef VERBOSE
+        cout << endl <<  "---------------------------------------------" << endl << endl;
         cout << "Location: " << location << endl
              << "Choice: " << choice << endl
              << "Data: " << data << endl;
+#endif
 
         // input ends
         
@@ -424,13 +405,57 @@ int main (int argc, char* argv[]) {
             }
         }
 
+#ifdef VERBOSE
         cout << "Printing cache\n";
-
         for (auto &set : cache.sets) {
             set.print();
         }
+#endif
 
     }
+
+    cout << endl <<  "---------------------------------------------" << endl << endl;
+    cout << endl << "Printing final state (verbose)" << endl;
+
+    for (auto &set : cache.sets) {
+        set.print();
+    }
+    
+    cout << endl <<  "---------------------------------------------" << endl << endl;
+    cout << endl << "Printing final state (in order of sets)" << endl;
+
+    for (auto &set : cache.sets) {
+        for (auto &b : set.set) {
+            cout << b.value << ", " << b.tag << ", " << (b.valid ? 1 : 0) << ", " << (b.dirty ? 1 : 0) << endl;
+        }
+    }
+    
+    cout << endl <<  "---------------------------------------------" << endl << endl;
+    cout << endl << "Printing final state (in order of (block number, set number))" << endl;
+
+    for (int i = 0; i < cache_associativity; ++i) {
+        for (int j = 0; j < num_sets; ++j) {
+            auto &b = cache.sets[j].set[i];
+            cout << b.value << ", " << b.tag << ", " << (b.valid ? 1 : 0) << ", " << (b.dirty ? 1 : 0) << endl;
+        }
+    }
+    /*
+    for (auto &set : cache.sets) {
+        for (auto &b : set.set) {
+            cout << b.value << ", " << b.tag << ", " << (b.valid ? 1 : 0) << ", " << (b.dirty ? 1 : 0) << endl;
+        }
+    }
+    */
+
+    cout << "Cache statistics" << endl 
+         << "Number of accesses = " << accesses << endl 
+         << "Number of reads = " << reads << endl
+         << "Number of read hits = " << read_hits << endl
+         << "Number of read misses = " << read_misses << endl
+         << "Number of writes = " << writes << endl
+         << "Number of write hits = " << write_hits << endl
+         << "Number of write misses = " << write_misses << endl
+         << "Hit ratio = " << ((double) (read_hits + write_hits) / accesses) << endl;
 
     return 0;
 
