@@ -18,6 +18,13 @@ bool isnum (char x) {
     return x <= '9' && x >= '0';
 }
 
+// check if signed data can fit in the given number of bytes
+bool in_range (long long data, int bytes) {
+    int mx = (1LL << (bytes << 3)) - 1;
+    int mn = - mx - 1;
+    return mn <= data && data <= mx;
+}
+
 /*
  * Data structures used
  */
@@ -363,7 +370,11 @@ int main (int argc, char* argv[]) {
         choice = line[0];
         if (choice == 'W') {
             cin >> line;
-            data = stoi(line);
+            data = stoll(line);
+            if (!in_range(data, block_size)) {
+                cerr << "Data doesn't fit in block size\n"; 
+                return 0;
+            }
         }
         
 #ifdef VERBOSE
@@ -397,7 +408,7 @@ int main (int argc, char* argv[]) {
         }
 
         for (auto &set : cache.sets) {
-            // check only the last element of the set
+            // check only the last element of the high priority elements of the set - this is because at any point, if there were two elements which had to be downgraded in the entire cache, they should have the same time of insertion, which is a contradiction
             if (set.high >= 1) {
                 if (set.set[set.high - 1].time < 0) {
                     --set.high;
@@ -439,13 +450,6 @@ int main (int argc, char* argv[]) {
             cout << b.value << ", " << b.tag << ", " << (b.valid ? 1 : 0) << ", " << (b.dirty ? 1 : 0) << endl;
         }
     }
-    /*
-    for (auto &set : cache.sets) {
-        for (auto &b : set.set) {
-            cout << b.value << ", " << b.tag << ", " << (b.valid ? 1 : 0) << ", " << (b.dirty ? 1 : 0) << endl;
-        }
-    }
-    */
 
     cout << "Cache statistics" << endl 
          << "Number of accesses = " << accesses << endl 
